@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient assistance system</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+HR+Lijeva:wght@100..400&family=Yuji+Mai&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+HR+Lijeva:wght@100..400&family=Roboto+Slab:wght@100..900&family=Yuji+Mai&display=swap"
+      rel="stylesheet"
+    />
+    <script src="sharedSocket.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mqtt@4.2.1/dist/mqtt.min.js"></script>
+  </head>
+  <body>
+    <h2 class="heading">Welcome to IoT based Patient assistance system</h2>
+
+    <div class="urlLink_box">
+      <div class="nurse_box">
+        
+        <a href="nurse.html">Nurse</a>
+      </div>
+      <div class="food_box">
+        <a href="food.html">Food</a>
+      </div>
+      <div class="maintenance_box">
+        <a href="maintenance.html">Maintenence</a>
+      </div>
+      <div class="hospitality_box">
+        <a href="hospitality.html">Hospitality</a>
+      </div>
+    </div>
+    <!-- Include Socket.IO client-side library from the server -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Include MQTT.js library for frontend -->
+    <script src="https://cdn.jsdelivr.net/npm/mqtt/dist/mqtt.min.js"></script>
+
+    <!-- Include your custom script.js file -->
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,188 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;font-family: "Roboto Slab", serif;font-family: Roboto Slab, Playwrite HR Lijeva, cursive;
+    
+}
+body{
+    width: auto;
+    height: 95vh;
+    background-image: url(resourse/images/bandages-medical-tools-arrangement.jpg);
+    background-size: cover; /* Scales the image to cover the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; 
+}
+.heading{
+    font-size: 38px;
+    width:80%;
+    text-align: center;
+    margin: 25px auto;
+    color: #000000;
+    background-color: rgba(0, 183, 255, 0.774);
+    border: 2px solid rgba(0, 183, 255, 0.635);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    font-weight: 900;
+    
+
+
+}
+.urlLink_box{
+            height: 80vh;
+            display: flex;
+            justify-content: center; /* Centers horizontally */
+            align-items: center;  
+            
+}
+.nurse_box,.food_box,.hospitality_box,.maintenance_box{
+            width: 250px;
+            height: 200px;
+            background-color: rgba(255, 127, 80, 0.833);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column; /* Aligns children in a column */
+            margin-left: 20px;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            
+        }
+
+        .nurse_box:hover, .food_box:hover, .hospitality_box:hover, .maintenance_box:hover{
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .nurse_box > a,.food_box > a,.maintenance_box > a,.hospitality_box > a {
+            text-decoration: none;
+            color: white;
+            font-size: 37px;
+            font-weight: 900;
+            background-color: none;
+            margin: 70px auto;
+            z-index: 100;
+            
+        }
+
+
+        /*Records*/
+        
+.recName
+{
+    display: inline-block;
+    font-size: 33px;
+    border: 2px solid white;
+    padding: 7px;
+    border-radius: 10px;
+    margin-top: 100px;
+    margin-left: 30px;
+    background-color: rgb(249, 106, 55);
+    color: white;
+}
+
+.homePage{
+    display: inline-block;
+    font-size: 15px;
+    border: 2px solid white;
+    padding: 7px;
+    border-radius: 10px;
+    margin-top: 100px;
+    margin-left: 60px;
+    background-color: white;
+    
+}
+
+/*---------------------Nurse message box --------------*/
+
+.nurse_message-box{
+
+  
+    font-size: 25px;
+    font-weight: 500;
+    margin: 20px 0px 0px 45px;
+    color: rgb(255, 255, 255);
+}
+
+
+/*--------------Container-------*/
+
+
+
+#records {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px 30px;
+    background: linear-gradient(135deg, rgba(0, 183, 255, 0.774), rgba(255, 127, 80, 0.833)); /* Gradient background */
+    
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: #fff;
+}
+
+.record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #f7f7f7;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.record:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.record p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    flex-grow: 1;
+}
+
+.record button {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color:rgba(0, 183, 255, 0.774);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.record button:hover {
+    background-color: rgba(0, 183, 255, 0.774);
+    transform: translateY(-2px);
+}
+
+.record button:disabled {
+    background-color: #28a745;
+    cursor: not-allowed;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    #records {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .record {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .record p {
+        margin-bottom: 10px;
+    }
+
+    .record button {
+        width: 100%;
+    }
+}
