@@ -108,19 +108,39 @@ body{
 /*--------------Container-------*/
 
 
-
 #records {
     width: 80%;
-    max-width: 600px;
+    max-width: 400px;
     margin: 20px 30px;
     background: linear-gradient(135deg, rgba(0, 183, 255, 0.774), rgba(255, 127, 80, 0.833)); /* Gradient background */
-    
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     color: #fff;
+    
+    max-height: 300px; /* Fixed height for the container */
+    overflow-y: auto; /* Enable vertical scrolling when content overflows */
 }
 
+/* Scrollbar styles for modern browsers */
+#records::-webkit-scrollbar {
+    width: 8px;
+}
+
+#records::-webkit-scrollbar-thumb {
+    background: rgba(0, 183, 255, 0.8); /* Thumb color */
+    border-radius: 4px;
+}
+
+#records::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 183, 255, 1); /* Hover effect for the thumb */
+}
+
+#records::-webkit-scrollbar-track {
+    background: rgba(255, 127, 80, 0.2); /* Track color */
+}
+
+/* Record styling */
 .record {
     display: flex;
     justify-content: space-between;
@@ -149,7 +169,7 @@ body{
     padding: 8px 12px;
     font-size: 14px;
     color: #fff;
-    background-color:rgba(0, 183, 255, 0.774);
+    background-color: rgba(0, 183, 255, 0.774);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -171,6 +191,7 @@ body{
     #records {
         width: 95%;
         padding: 15px;
+        max-height: 300px; /* Adjusted height for smaller screens */
     }
 
     .record {

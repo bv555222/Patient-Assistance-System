@@ -41,14 +41,18 @@ document.addEventListener('mqtt-message', (event) => {
     handleIncomingMessage(message);
 });
 
+
+
 // Function to process messages
 function handleIncomingMessage(msg) {
-    const [bedNumber, type] = msg.split('-');
+
+        const [bedNumber, type] = msg.split('-');
     if (type === pageType) {
         createRecord(bedNumber, type);
     } else if (msg.startsWith('KILL-')) {
         deleteRecord(msg.split('-')[1]);
     }
+
 }
 
 // Function to create a record (optimized)
@@ -77,7 +81,7 @@ function acknowledgeRecord(bedNumber) {
         button.style.backgroundColor = 'green';
     }
     client.publish(topic, `ACK-${bedNumber}`);
-    removeRecordFromLocalStorage(bedNumber);
+    //removeRecordFromLocalStorage(bedNumber);
 }
 
 // Function to delete a record
@@ -107,17 +111,32 @@ function removeRecordFromLocalStorage(bedNumber) {
 function loadRecordsFromLocalStorage() {
     const records = JSON.parse(localStorage.getItem('records')) || [];
     const fragment = document.createDocumentFragment(); // Batch DOM operations
+
     records.forEach(({ bedNumber, type }) => {
         if (type === pageType) {
+            // Create the record container element
             const record = document.createElement('div');
             record.id = `record-${bedNumber}`;
             record.className = 'record';
-            record.innerHTML = `
-                <p>${bedNumber} - ${type}</p>
-                <button onclick="acknowledgeRecord('${bedNumber}')">Acknowledge</button>
-            `;
+
+            // Create the paragraph element for bed number and type
+            const paragraph = document.createElement('p');
+            paragraph.textContent = `${bedNumber} - ${type}`;
+            record.appendChild(paragraph);
+
+            // Create the acknowledge button
+            const button = document.createElement('button');
+            button.textContent = 'Acknowledge';
+            button.onclick = function() {
+                acknowledgeRecord(bedNumber);
+            };
+            record.appendChild(button);
+
+            // Append the record to the document fragment
             fragment.appendChild(record);
         }
     });
-    recordsDiv.appendChild(fragment); // Insert all records at once
+
+    // Append all records to the DOM at once
+    recordsDiv.appendChild(fragment);
 }
