@@ -81,7 +81,7 @@ function acknowledgeRecord(bedNumber) {
         button.disabled = true;
         button.style.backgroundColor = 'green';
     }
-    client.publish(topic, `ACK-${bedNumber}`);
+    client.publish(topic, `ACK-${bedNumber}-${pageType}`);
     //removeRecordFromLocalStorage(bedNumber);
 }
 
