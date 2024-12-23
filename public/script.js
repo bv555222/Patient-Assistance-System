@@ -112,8 +112,9 @@ function loadRecordsFromLocalStorage() {
     const records = JSON.parse(localStorage.getItem('records')) || [];
     const fragment = document.createDocumentFragment(); // Batch DOM operations
 
+    // Loop through the stored records
     records.forEach(({ bedNumber, type }) => {
-        if (type === pageType) {
+        if (type === pageType && !document.getElementById(`record-${bedNumber}`)) {  // Avoid duplicates
             // Create the record container element
             const record = document.createElement('div');
             record.id = `record-${bedNumber}`;
@@ -127,9 +128,9 @@ function loadRecordsFromLocalStorage() {
             // Create the acknowledge button
             const button = document.createElement('button');
             button.textContent = 'Acknowledge';
-            button.onclick = function() {
+            button.addEventListener('click', function() {
                 acknowledgeRecord(bedNumber);
-            };
+            });
             record.appendChild(button);
 
             // Append the record to the document fragment
@@ -137,6 +138,6 @@ function loadRecordsFromLocalStorage() {
         }
     });
 
-    // Append all records to the DOM at once
+    // Append all records to the DOM at once to minimize reflows
     recordsDiv.appendChild(fragment);
 }
