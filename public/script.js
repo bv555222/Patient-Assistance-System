@@ -1,3 +1,4 @@
+
 // WebSocket connection
 const socket = window.sharedSocket;
 
@@ -108,7 +109,15 @@ function removeRecordFromLocalStorage(bedNumber) {
     localStorage.setItem('records', JSON.stringify(records));
 }
 
+
 function loadRecordsFromLocalStorage() {
+    const recordsDiv = document.getElementById('records');
+    console.log('recordsDiv:', recordsDiv);  // Debugging line to check if the element exists
+    if (!recordsDiv) {
+        console.error('Element with id "records" not found!');
+        return;
+    }
+
     const records = JSON.parse(localStorage.getItem('records')) || [];
     const fragment = document.createDocumentFragment(); // Batch DOM operations
 

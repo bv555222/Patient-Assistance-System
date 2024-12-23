@@ -1,3 +1,4 @@
+
 // Create or reuse a shared WebSocket connection
 if (!window.sharedSocket) {
     const socket = io(); // Initialize WebSocket (adjust URL if required)
