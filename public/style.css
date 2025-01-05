@@ -186,6 +186,7 @@ body{
     cursor: not-allowed;
 }
 
+
 /* Responsive styles */
 @media (max-width: 600px) {
     #records {

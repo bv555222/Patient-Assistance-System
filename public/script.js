@@ -64,8 +64,12 @@ function handleIncomingMessage(msg) {
         createRecord(bedNumber, type);
      
     } 
+    else{
+        saveRecordToLocalStorage(bedNumber,type)
+    }
 
 }
+
 
 // Function to create a record (optimized)
 function createRecord(bedNumber, type) {
@@ -78,7 +82,7 @@ function createRecord(bedNumber, type) {
     // Using a single reflow-efficient string for content
     record.innerHTML = `
         <p> ${bedNumber}</p>
-        <button onclick="acknowledgeRecord('${bedNumber}')">Acknowledge</button>
+        <button onclick="acknowledgeRecord('${bedNumber}-${type}')">Acknowledge</button>
     `;
 
     recordsDiv.appendChild(record);
@@ -87,7 +91,7 @@ function createRecord(bedNumber, type) {
 
 // Function to acknowledge a record
 function acknowledgeRecord(bedNumber) {
-    const button = document.querySelector(`#record-${bedNumber} button`);
+    const button = document.querySelector(`#record-${bedNumber}-${type} button`);
     if (button) {
         button.disabled = true;
         button.style.backgroundColor = 'green';
@@ -98,12 +102,10 @@ function acknowledgeRecord(bedNumber) {
 
 // Function to delete a record
 function deleteRecord(bedNumber,type) {
-    const record = document.getElementById(`record-${bedNumber}-${type}`);
-    if (record) {
-        record.remove();
-    
-    }
+   
     removeRecordFromLocalStorage(bedNumber,type);
+     const record = document.getElementById(`record-${bedNumber}-${type}`);
+    record.remove();
 }
 
 // Efficient localStorage helpers
