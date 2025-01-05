@@ -82,7 +82,7 @@ function createRecord(bedNumber, type) {
     // Using a single reflow-efficient string for content
     record.innerHTML = `
         <p> ${bedNumber}</p>
-        <button onclick="acknowledgeRecord('${bedNumber},${type}')">Acknowledge</button>
+        <button onclick="acknowledgeRecord('${bedNumber}','${type}')">Acknowledge</button>
     `;
 
     recordsDiv.appendChild(record);
@@ -92,12 +92,12 @@ function createRecord(bedNumber, type) {
 
 // Function to acknowledge a record
 function acknowledgeRecord(bedNumber,type) {
-    const button = document.querySelector(`record-${type}-${bedNumber} button`);
-   
+    const button = document.querySelector(`#record-${type}-${bedNumber} button`);
+   console.log(button);
     
-    if (button) {
-        button.disabled = true;
-        button.style.backgroundColor = 'green';
+     if (button) {
+         button.disabled = true;
+         button.style.backgroundColor = 'green';
     }
     client.publish(topic, `ACK-${bedNumber}-${pageType}`);
     //removeRecordFromLocalStorage(bedNumber);
@@ -152,7 +152,7 @@ function loadRecordsFromLocalStorage(type) {
 
             // Create the paragraph element for bed number and type
             const paragraph = document.createElement('p');
-            paragraph.textContent = `${bedNumber} - ${type}`;
+            paragraph.textContent = `${bedNumber}`;
             record.appendChild(paragraph);
 
             // Create the acknowledge button
