@@ -73,25 +73,28 @@ function handleIncomingMessage(msg) {
 
 // Function to create a record (optimized)
 function createRecord(bedNumber, type) {
-    if (document.getElementById(`record-${bedNumber}-${type}`)) return; // Avoid duplicates
+    if (document.getElementById(`record-${type}-${bedNumber}`)) return; // Avoid duplicates
 
     const record = document.createElement('div');
-    record.id = `record-${bedNumber}-${type}`;
+    record.id = `record-${type}-${bedNumber}`;
     record.className = 'record';
 
     // Using a single reflow-efficient string for content
     record.innerHTML = `
         <p> ${bedNumber}</p>
-        <button onclick="acknowledgeRecord('${bedNumber}-${type}')">Acknowledge</button>
+        <button onclick="acknowledgeRecord('${bedNumber},${type}')">Acknowledge</button>
     `;
 
     recordsDiv.appendChild(record);
     saveRecordToLocalStorage(bedNumber, type);
+  
 }
 
 // Function to acknowledge a record
-function acknowledgeRecord(bedNumber) {
-    const button = document.querySelector(`#record-${bedNumber}-${type} button`);
+function acknowledgeRecord(bedNumber,type) {
+    const button = document.querySelector(`record-${type}-${bedNumber} button`);
+   
+    
     if (button) {
         button.disabled = true;
         button.style.backgroundColor = 'green';
@@ -104,8 +107,12 @@ function acknowledgeRecord(bedNumber) {
 function deleteRecord(bedNumber,type) {
    
     removeRecordFromLocalStorage(bedNumber,type);
-     const record = document.getElementById(`record-${bedNumber}-${type}`);
-    record.remove();
+    
+     const record = document.getElementById(`record-${type}-${bedNumber}`);
+     if(record)
+  { 
+     record.remove();
+    }
 }
 
 // Efficient localStorage helpers
@@ -140,7 +147,7 @@ function loadRecordsFromLocalStorage(type) {
         if (type === pageType && !document.getElementById(`record-${bedNumber}`)) {  // Avoid duplicates
             // Create the record container element
             const record = document.createElement('div');
-            record.id = `record-${bedNumber}`;
+            record.id = `record-${type}-${bedNumber}`;
             record.className = 'record';
 
             // Create the paragraph element for bed number and type
