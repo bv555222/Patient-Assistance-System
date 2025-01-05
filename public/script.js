@@ -14,7 +14,7 @@ const pageType = document.title.split(' ')[0].toUpperCase(); // Get the page typ
 const recordsDiv = document.getElementById("records");
 
 // Load records from localStorage
-loadRecordsFromLocalStorage();
+loadRecordsFromLocalStorage(pageType);
 
 // MQTT connection
 client.on('connect', () => {
@@ -46,27 +46,38 @@ document.addEventListener('mqtt-message', (event) => {
 
 // Function to process messages
 function handleIncomingMessage(msg) {
+    console.log("ht:",msg);
 
+    if(msg.startsWith('KILL'))
+
+    {
+        console.log("delete",msg.split('-')[1],msg.split('-')[2]);
+        deleteRecord(msg.split('-')[1],msg.split('-')[2]);
+        return;
+
+    }
         const [bedNumber, type] = msg.split('-');
+        console.log(pageType,type,bedNumber);
+        
+            
     if (type === pageType) {
         createRecord(bedNumber, type);
-    } else if (msg.startsWith('KILL-')) {
-        deleteRecord(msg.split('-')[1]);
-    }
+     
+    } 
 
 }
 
 // Function to create a record (optimized)
 function createRecord(bedNumber, type) {
-    if (document.getElementById(`record-${bedNumber}`)) return; // Avoid duplicates
+    if (document.getElementById(`record-${bedNumber}-${type}`)) return; // Avoid duplicates
 
     const record = document.createElement('div');
-    record.id = `record-${bedNumber}`;
+    record.id = `record-${bedNumber}-${type}`;
     record.className = 'record';
 
     // Using a single reflow-efficient string for content
     record.innerHTML = `
-        <p> ${bedNumber} -  ${type}</p>
+        <p> ${bedNumber}</p>
         <button onclick="acknowledgeRecord('${bedNumber}')">Acknowledge</button>
     `;
 
@@ -86,31 +97,32 @@ function acknowledgeRecord(bedNumber) {
 }
 
 // Function to delete a record
-function deleteRecord(bedNumber) {
-    const record = document.getElementById(`record-${bedNumber}`);
+function deleteRecord(bedNumber,type) {
+    const record = document.getElementById(`record-${bedNumber}-${type}`);
     if (record) {
         record.remove();
+    
     }
-    removeRecordFromLocalStorage(bedNumber);
+    removeRecordFromLocalStorage(bedNumber,type);
 }
 
 // Efficient localStorage helpers
 function saveRecordToLocalStorage(bedNumber, type) {
-    const records = JSON.parse(localStorage.getItem('records')) || [];
+    const records = JSON.parse(localStorage.getItem(`records-${type}`)) || [];
     if (!records.some(record => record.bedNumber === bedNumber)) {
         records.push({ bedNumber, type });
-        localStorage.setItem('records', JSON.stringify(records));
+        localStorage.setItem(`records-${type}`, JSON.stringify(records));
     }
 }
 
-function removeRecordFromLocalStorage(bedNumber) {
-    let records = JSON.parse(localStorage.getItem('records')) || [];
+function removeRecordFromLocalStorage(bedNumber,type) {
+    let records = JSON.parse(localStorage.getItem(`records-${type}`)) || [];
     records = records.filter(record => record.bedNumber !== bedNumber);
-    localStorage.setItem('records', JSON.stringify(records));
+    localStorage.setItem(`records-${type}`, JSON.stringify(records));
 }
 
 
-function loadRecordsFromLocalStorage() {
+function loadRecordsFromLocalStorage(type) {
     const recordsDiv = document.getElementById('records');
     console.log('recordsDiv:', recordsDiv);  // Debugging line to check if the element exists
     if (!recordsDiv) {
@@ -118,7 +130,7 @@ function loadRecordsFromLocalStorage() {
         return;
     }
 
-    const records = JSON.parse(localStorage.getItem('records')) || [];
+    const records = JSON.parse(localStorage.getItem(`records-${type}`)) || [];
     const fragment = document.createDocumentFragment(); // Batch DOM operations
 
     // Loop through the stored records
