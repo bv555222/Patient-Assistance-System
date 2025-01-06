@@ -119,7 +119,7 @@ function createRecord(bedNumber, type) {
 
     recordsDiv.appendChild(record);
     saveRecordToLocalStorage(bedNumber, type);
-    
+    playRingingSound();
   
 }
 
@@ -202,6 +202,8 @@ function loadRecordsFromLocalStorage(type) {
 
             // Append the record to the document fragment
             fragment.appendChild(record);
+
+            
         }
     });
 
