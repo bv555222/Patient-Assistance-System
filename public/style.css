@@ -114,6 +114,7 @@ body{
     margin: 20px 30px;
     background: linear-gradient(135deg, rgba(0, 183, 255, 0.774), rgba(255, 127, 80, 0.833)); /* Gradient background */
     border-radius: 8px;
+    border: 2px solid whitesmoke;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     color: #fff;
@@ -129,15 +130,18 @@ body{
 
 #records::-webkit-scrollbar-thumb {
     background: rgba(0, 183, 255, 0.8); /* Thumb color */
+    /* background: linear-gradient(135deg, rgba(255, 127, 80, 0.833),rgba(0, 183, 255, 0.774), rgba(255, 127, 80, 0.833)); */
     border-radius: 4px;
 }
 
 #records::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 183, 255, 1); /* Hover effect for the thumb */
+    /* background: linear-gradient(135deg, rgba(255, 127, 80, 0.833),rgba(0, 183, 255, 0.774), rgba(255, 127, 80, 0.833)); */
 }
 
 #records::-webkit-scrollbar-track {
     background: rgba(255, 127, 80, 0.2); /* Track color */
+    
 }
 
 /* Record styling */
@@ -185,6 +189,7 @@ body{
     background-color: #28a745;
     cursor: not-allowed;
 }
+
 
 
 /* Responsive styles */

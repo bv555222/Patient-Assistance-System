@@ -6,6 +6,10 @@ const socket = window.sharedSocket;
 const broker = 'ws://broker.hivemq.com:8000/mqtt'; // Public MQTT broker WebSocket
 const topic = 'test/charan'; // Topic to subscribe to and publish to
 
+// Load the ringing sound
+const ringSound = new Audio('resourse/ring.mp3');
+
+
 // Create an MQTT client
 const client = mqtt.connect(broker);
 
@@ -62,14 +66,42 @@ function handleIncomingMessage(msg) {
             
     if (type === pageType) {
         createRecord(bedNumber, type);
+        
      
     } 
     else{
         saveRecordToLocalStorage(bedNumber,type)
+        
     }
 
 }
+// Enable audio playback after user interaction
+document.addEventListener('click', enableAudioPlayback, { once: true });
 
+// Function to allow audio playback
+function enableAudioPlayback() {
+    ringSound.play().then(() => {
+        ringSound.pause(); // Immediately pause to prepare for later use
+        ringSound.currentTime = 0; // Reset the audio
+        console.log("Audio enabled after user interaction.");
+    }).catch(err => {
+        console.error("Error enabling audio:", err);
+    });
+}
+
+// Function to play the ringing sound for 3 seconds
+function playRingingSound() {
+    ringSound.currentTime = 0; // Reset the sound to the beginning
+    ringSound.play().catch(err => {
+        console.error('Error playing sound:', err);
+    });
+
+    // Stop the sound after 3 seconds
+    setTimeout(() => {
+        ringSound.pause();
+        ringSound.currentTime = 0; // Reset the sound
+    }, 3000); // 3000 milliseconds = 3 seconds
+}
 
 // Function to create a record (optimized)
 function createRecord(bedNumber, type) {
@@ -87,6 +119,7 @@ function createRecord(bedNumber, type) {
 
     recordsDiv.appendChild(record);
     saveRecordToLocalStorage(bedNumber, type);
+    
   
 }
 
@@ -94,11 +127,14 @@ function createRecord(bedNumber, type) {
 function acknowledgeRecord(bedNumber,type) {
     const button = document.querySelector(`#record-${type}-${bedNumber} button`);
    console.log(button);
-    
+   
+   
      if (button) {
          button.disabled = true;
          button.style.backgroundColor = 'green';
+         
     }
+    
     client.publish(topic, `ACK-${bedNumber}-${pageType}`);
     //removeRecordFromLocalStorage(bedNumber);
 }
@@ -121,6 +157,7 @@ function saveRecordToLocalStorage(bedNumber, type) {
     if (!records.some(record => record.bedNumber === bedNumber)) {
         records.push({ bedNumber, type });
         localStorage.setItem(`records-${type}`, JSON.stringify(records));
+        playRingingSound();
     }
 }
 
@@ -159,7 +196,7 @@ function loadRecordsFromLocalStorage(type) {
             const button = document.createElement('button');
             button.textContent = 'Acknowledge';
             button.addEventListener('click', function() {
-                acknowledgeRecord(bedNumber);
+                acknowledgeRecord(bedNumber,type);
             });
             record.appendChild(button);
 
