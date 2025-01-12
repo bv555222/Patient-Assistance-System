@@ -1,16 +1,36 @@
 {
-  "name": "mqtt-project",
+  "name": "mqtt-web-application",
   "version": "1.0.0",
+  "description": "Web application using MQTT, WebSocket, and real-time updates",
+  "main": "server.js",
   "type": "module",
-  "main": "script.js",
   "scripts": {
-    "start": "node script.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
-    "aedes": "^0.51.3",
-    "express": "^4.21.2",
-    "mosca": "^2.8.3",
-    "mqtt": "^5.10.3",
-    "socket.io": "^4.8.1"
-  }
+    "aedes": "^0.51.3",         
+    "cors": "^2.8.5",           
+    "dotenv": "^16.3.1",        
+    "express": "^4.21.2",      
+    "mosca": "^2.8.3",          
+    "mqtt": "^5.10.3",          
+    "socket.io": "^4.8.1",     
+    "socket.io-client": "^4.8.1" 
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"         
+  },
+  "engines": {
+    "node": ">=16.0.0"         
+  },
+  "keywords": [
+    "mqtt",
+    "websocket",
+    "real-time",
+    "express",
+    "iot"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
 }
