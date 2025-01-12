@@ -3,7 +3,7 @@
 const socket = window.sharedSocket;
 
 // MQTT broker details
-const broker = 'ws://broker.hivemq.com:8000/mqtt'; // Public MQTT broker WebSocket
+const broker = 'wss://broker.hivemq.com:8000/mqtt'; // Public MQTT broker WebSocket
 const topic = 'test/charan'; // Topic to subscribe to and publish to
 
 // Load the ringing sound
