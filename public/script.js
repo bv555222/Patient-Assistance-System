@@ -3,7 +3,7 @@
 const socket = window.sharedSocket;
 
 // MQTT broker details
-const broker = 'wss://broker.hivemq.com:8000/mqtt'; // Public MQTT broker WebSocket
+const broker = 'wss://broker.hivemq.com:8884/mqtt'; // Public MQTT broker WebSocket
 const topic = 'test/charan'; // Topic to subscribe to and publish to
 
 // Load the ringing sound
@@ -127,15 +127,15 @@ function createRecord(bedNumber, type) {
 function acknowledgeRecord(bedNumber,type) {
     const button = document.querySelector(`#record-${type}-${bedNumber} button`);
    console.log(button);
-   
+   client.publish(topic, `ACK-${bedNumber}-${type}`);
    
      if (button) {
          button.disabled = true;
          button.style.backgroundColor = 'green';
-         
+        
     }
     
-    client.publish(topic, `ACK-${bedNumber}-${pageType}`);
+    
     //removeRecordFromLocalStorage(bedNumber);
 }
 
@@ -157,7 +157,7 @@ function saveRecordToLocalStorage(bedNumber, type) {
     if (!records.some(record => record.bedNumber === bedNumber)) {
         records.push({ bedNumber, type });
         localStorage.setItem(`records-${type}`, JSON.stringify(records));
-        playRingingSound();
+        
     }
 }
 
